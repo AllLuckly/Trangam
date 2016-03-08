@@ -1,0 +1,48 @@
+//
+//  SeventhTangramView.m
+//  Tangram
+//
+//  Created by 袁灿 on 16/3/7.
+//  Copyright © 2016年 yuancan. All rights reserved.
+//
+
+#import "SeventhTangramView.h"
+
+@implementation SeventhTangramView
+
+- (void)drawRect:(CGRect)rect
+{
+    UIColor *color = COLOR(17, 199, 216, 1);
+    self.backgroundColor = color;
+    [color set]; //设置线条颜色
+    
+    float x1 = 1.0/2.0*SCREEN_WIDTH+20;
+    float y1 = -3.0/14.0*kQtRate*x1+6.0/7.0*SCREEN_HEIGHT;
+    
+    self.path = [UIBezierPath bezierPath];
+    [self.path moveToPoint:CGPointMake(x1, y1)];
+    [self.path addLineToPoint:CGPointMake(0, 6.0/7.0*SCREEN_HEIGHT)];
+    [self.path addLineToPoint:CGPointMake(0, SCREEN_HEIGHT)];
+    [self.path addLineToPoint:CGPointMake(SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [self.path closePath];
+    [self.path fill];
+
+    [self setMaskWithUIBezierPath:self.path];
+    
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 55, 20)];
+    title.center = CGPointMake(SCREEN_WIDTH/2, y1+(SCREEN_HEIGHT-y1)/2);
+    title.text = @"七巧板七";
+    title.textColor = [UIColor whiteColor];
+    title.font = [UIFont systemFontOfSize:10.0f];
+    title.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:title];
+    
+    [UIView animateWithDuration:1.0
+                     animations:^{
+                         title.transform = CGAffineTransformRotate(CGAffineTransformScale(title.transform, 1.5, 1.5), 0.15*M_PI); //缩放+旋转
+                     }];
+
+}
+
+
+@end
